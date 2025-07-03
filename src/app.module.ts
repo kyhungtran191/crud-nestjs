@@ -8,6 +8,6 @@ import { SharedModule } from './shared/shared.module'
 @Module({
   imports: [PostsModule, SharedModule],
   controllers: [AppController, PostsController],
-  providers: [AppService],
+  providers: [AppService, SharedModule],
 })
 export class AppModule {}
