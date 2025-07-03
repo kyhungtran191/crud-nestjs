@@ -6,4 +6,5 @@ import { PrismaService } from './services/prisma.service'
   providers: [PrismaService],
   exports: [PrismaService],
 })
-export class SharedModule {}
+export class SharedModule {
+}
