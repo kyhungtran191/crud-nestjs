@@ -4,9 +4,10 @@ import { AppService } from './app.service'
 import { PostsController } from './routes/posts/posts.controller'
 import { PostsModule } from './routes/posts/posts.module'
 import { SharedModule } from './shared/shared.module'
+import { AuthModule } from './routes/auth/auth.module'
 
 @Module({
-  imports: [PostsModule, SharedModule],
+  imports: [PostsModule, SharedModule, AuthModule],
   controllers: [AppController, PostsController],
   providers: [AppService, SharedModule],
 })
