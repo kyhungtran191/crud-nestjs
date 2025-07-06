@@ -8,6 +8,15 @@ export class LoginBodyDTO {
   password: string
 }
 
+export class LoginResDTO {
+  accessToken: string
+  refreshToken: string
+
+  constructor(partial: Partial<LoginResDTO>) {
+    Object.assign(this, partial)
+  }
+}
+
 export class RegisterBodyDTO extends LoginBodyDTO {
   @IsString()
   name: string
@@ -24,12 +33,14 @@ export class RegisterResDTO {
   createdAt: Date
   updateAt: Date
 
-  @Expose()
-  get emailName(){
-    return `${this.email} - ${this.name}`
-  }
-
   constructor(partial: Partial<RegisterResDTO>) {
     Object.assign(this, partial)
   }
 }
+
+export class RefreshTokenBodyDTO {
+  @IsString()
+  refreshToken: string
+}
+
+export class RefreshTokenResDTO extends LoginResDTO {}
