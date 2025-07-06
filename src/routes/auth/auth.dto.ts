@@ -24,11 +24,6 @@ export class RegisterResDTO {
   createdAt: Date
   updateAt: Date
 
-  @Expose()
-  get emailName(){
-    return `${this.email} - ${this.name}`
-  }
-
   constructor(partial: Partial<RegisterResDTO>) {
     Object.assign(this, partial)
   }
