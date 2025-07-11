@@ -1,4 +1,12 @@
-import { Body, ClassSerializerInterceptor, Controller, Post, SerializeOptions, UseInterceptors } from '@nestjs/common'
+import {
+  Body,
+  ClassSerializerInterceptor,
+  Controller,
+  Post,
+  SerializeOptions,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common'
 import { AuthService } from './auth.service'
 import {
   LoginBodyDTO,
@@ -8,6 +16,7 @@ import {
   RegisterBodyDTO,
   RegisterResDTO,
 } from './auth.dto'
+import { AccessTokenGuard } from 'src/shared/guards/access-token.guard'
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
@@ -22,6 +31,8 @@ export class AuthController {
     // return this
     return new LoginResDTO(await this.authService.login(body))
   }
+  // Restrict guard
+  @UseGuards(AccessTokenGuard)
   @Post('refresh-token')
   async refreshToken(@Body() body: RefreshTokenBodyDTO) {
     return new RefreshTokenResDTO(await this.authService.refreshToken(body.refreshToken))

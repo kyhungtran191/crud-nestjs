@@ -23,6 +23,8 @@ class ConfigSchema {
   REFRESH_TOKEN_SECRET: string
   @IsString()
   REFRESH_TOKEN_EXPIRES_IN: string
+  @IsString()
+  API_X_KEY: string
 }
 //convert Object to class
 const configServer = plainToInstance(ConfigSchema, process.env)
