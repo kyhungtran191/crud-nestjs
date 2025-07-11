@@ -1,10 +1,14 @@
 import { Exclude, Expose } from 'class-transformer'
-import { IsString } from 'class-validator'
+import { IsString, Length } from 'class-validator'
+import { Match } from 'src/shared/decorators/custom-validator.decorator'
 
 export class LoginBodyDTO {
   @IsString()
   email: string
   @IsString()
+  @Length(6, 20, {
+    message: 'Password should be 6 - 20 characters',
+  })
   password: string
 }
 
@@ -21,6 +25,9 @@ export class RegisterBodyDTO extends LoginBodyDTO {
   @IsString()
   name: string
   @IsString()
+  @Match('password', {
+    message: 'Confirm password is not match',
+  })
   confirmPassword: string
 }
 
