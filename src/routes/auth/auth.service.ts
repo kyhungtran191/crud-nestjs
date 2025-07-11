@@ -4,7 +4,7 @@ import { HashingService } from 'src/shared/services/hashing.service'
 import { PrismaService } from 'src/shared/services/prisma.service'
 import { LoginBodyDTO, RefreshTokenBodyDTO } from './auth.dto'
 import { TokenService } from 'src/shared/services/token.service'
-import { PrismaClientKnownRequestError } from 'generated/prisma/runtime/library'
+import { isUniqueConstraintError } from 'src/shared/helper'
 
 @Injectable()
 export class AuthService {
@@ -91,7 +91,7 @@ export class AuthService {
     } catch (err) {
       //refresh token->thong bao cho user
       //refresh token bi danh cap
-      if (err instanceof PrismaClientKnownRequestError && err.code === 'P2025') {
+      if (isUniqueConstraintError(err)) {
         throw new UnauthorizedException('Refresh token has been revoked')
       }
       throw new UnauthorizedException()
